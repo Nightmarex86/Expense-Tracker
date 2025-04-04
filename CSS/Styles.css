@@ -1,0 +1,102 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1,h2,h3{
+    margin-top:20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+}
+
+
+.btn {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+#add-btn{
+    background-color: #4CAF50; /* Green */
+}
+#view-btn{
+    background-color: #008CBA; /* Blue */
+}
+#delete-btn{
+    background-color: #f44336; /* Red */
+}
+#update-btn{
+    background-color: gray; /* Gray */
+}
+
+/* Add animation for popup visibility */
+.popup {
+    visibility: hidden; /* Initially hidden */
+    position: fixed;
+    height: 500px;
+    width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8); /* Start with a smaller scale */
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Visible when 'show' class is added */
+.popup.show {
+    visibility: visible; /* Make visible */
+    opacity: 1; /* Fully visible */
+    transform: translate(-50%, -50%) scale(1); /* Scale back to normal size */
+}
+.cancel-btn{
+    display:block;
+    background-color: #f44336;
+    border-radius: 3px;
+    padding:10px;
+    width:35px;
+    margin-left:auto;
+    color:black;
+    border:none;
+}
+.submit-btn{
+    display:block;
+    padding:15px;
+    margin:20px auto;
+    border:none;
+    color:white;
+    background-color: #333;
+    border-radius:10px;
+}
+form{
+    display:flex;
+    flex-direction:column;
+    margin:0 auto;
+    width:300px;
+}
+input[type="text"], input[type="number"],input[type=date] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
