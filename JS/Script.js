@@ -30,7 +30,96 @@ document.querySelectorAll('.cancel-btn').forEach((button) => {
 
 const expenseLs = document.getElementById('expense-list');
 const addExpenseBtn= document.getElementById('add-expense-btn');
+const viewBtn = document.getElementById('view-btn');
 
+addExpenseBtn.addEventListener('click', function() {
+    const name = document.getElementById('expense-name').value;
+    const amount = document.getElementById('expense-amount').value;
+    const date = document.getElementById('expense-date').value;
+    const id = push(expenseRef).key; // Generate a unique key for the new expense
+    set(ref(db, 'expenses/' + id), {
+        name: name,
+        amount: amount,
+        date: date
+    }).then(() => {
+        alert("Expense added successfully!");
+        togglePopup('add-popup'); // Hide the popup after adding expense
+    }).catch((error) => {
+        console.error("Error adding expense:", error);
+    });
+})
 
+viewBtn.addEventListener('click', function() {})
+    
+        onValue(expenseRef, (snapshot) => {
+            expenseLs.innerHTML = ""; // Clear the list before adding new items
+            snapshot.forEach((childSnapshot) => {
+                expenseLs.innerHTML += `<div class="expense-child">Expense name: ${childSnapshot.val().name} <br>Expense amount: ${childSnapshot.val().amount} L.L <br> Expense date: ${childSnapshot.val().date}</div>`;
+        });
+});
+const deleteExpense = document.getElementById('delete-btn');
+const deleteExpenseBtn = document.getElementById('delete-expense-btn');
 
+deleteExpenseBtn.addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent form submission
+    const expenseName = document.getElementById('delete-expense-name').value;
 
+    // Search for the expense by name
+    onValue(expenseRef, (snapshot) => {
+        let expenseFound = false;
+        snapshot.forEach((childSnapshot) => {
+            const expense = childSnapshot.val();
+            if (expense.name === expenseName) {
+                const expenseId = childSnapshot.key; // Get the unique key of the expense
+                remove(ref(db, 'expenses/' + expenseId))
+                    .then(() => {
+                        alert(`Expense "${expenseName}" deleted successfully!`);
+                        togglePopup('delete-popup'); // Hide the popup after deleting expense
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting expense:", error);
+                    });
+                expenseFound = true;
+            }
+        });
+
+        if (!expenseFound) {
+            alert(`Expense "${expenseName}" not found!`);
+        }
+    });
+});
+const updateExpenseBtn = document.getElementById('update-expense-btn');
+updateExpenseBtn.addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent form submission
+    const expenseName = document.getElementById('update-expense-name').value;
+    const newAmount = document.getElementById('update-expense-amount').value;
+    const newDate = document.getElementById('update-expense-date').value;
+
+    // Search for the expense by name
+    onValue(expenseRef, (snapshot) => {
+        let expenseFound = false;
+        snapshot.forEach((childSnapshot) => {
+            const expense = childSnapshot.val();
+            if (expense.name === expenseName) {
+                const expenseId = childSnapshot.key; // Get the unique key of the expense
+                set(ref(db, 'expenses/' + expenseId), {
+                    name: expense.name, // Keep the original name
+                    amount: newAmount,
+                    date: newDate
+                })
+                    .then(() => {
+                        alert(`Expense "${expenseName}" updated successfully!`);
+                        togglePopup('update-popup'); // Hide the popup after updating expense
+                    })
+                    .catch((error) => {
+                        console.error("Error updating expense:", error);
+                    });
+                expenseFound = true;
+            }
+        });
+
+        if (!expenseFound) {
+            alert(`Expense "${expenseName}" not found!`);
+        }
+    });
+});

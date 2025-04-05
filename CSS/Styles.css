@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background:linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+    font-family: 'Arial', sans-serif;
+}
 h1,h2,h3{
     margin-top:20px;
     font-family: 'Arial', sans-serif;
@@ -60,13 +64,13 @@ h1,h2,h3{
     opacity: 0; /* Start invisible */
     transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
-
-/* Visible when 'show' class is added */
 .popup.show {
     visibility: visible; /* Make visible */
     opacity: 1; /* Fully visible */
     transform: translate(-50%, -50%) scale(1); /* Scale back to normal size */
 }
+
+/* Visible when 'show' class is added */
 .cancel-btn{
     display:block;
     background-color: #f44336;
@@ -99,4 +103,14 @@ input[type="text"], input[type="number"],input[type=date] {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+.expense-child{
+    display:block;
+    margin:10px 0;
+    padding:10px;
+    background-color: #333;
+    box-shadow: 1px 1px 1px #ccc;
+    color:white;
+    text-align:center;
+    border-radius:5px;
 }
